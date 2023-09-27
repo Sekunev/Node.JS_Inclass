@@ -72,9 +72,9 @@ db.collName2.drop(); // Drop
 // db.coll.insertOne( { new_values } )
 // db.coll.insertMany( [ { new_values } ] )
 db.coll.insertOne({ firstName: "Test", lastName: "Test", age: 10 });
-db.coll.insertMany([
+
   // in array[]
-  { firstName: "Test1", lastName: "Test1", age: 11 },
+  db.coll.insertMany([{ firstName: "Test1", lastName: "Test1", age: 11 },
   { firstName: "Test2", lastName: "Test2", age: 12 },
   { firstName: "Test3", lastName: "Test3", age: 13 },
   { firstName: "Test4", lastName: "Test4", age: 14 },
@@ -118,7 +118,7 @@ db.coll.find(
     /* all */
   },
   { _id: false, firstName: true, lastName: true }
-); // Select Fields idşer gelmesin.
+); // Select Fields id'er gelmesin.
 db.coll.distinct("firstName");
 // Comparison:
 db.coll.find({ age: { $exists: true } }); // if exists
@@ -126,7 +126,7 @@ db.coll.find({ age: { $eq: 15 } }); // == : equal
 db.coll.find({ age: { $ne: 15 } }); // <> : not equal
 db.coll.find({ age: { $gt: 15 } }); // > : greather than
 db.coll.find({ age: { $gte: 15 } }); // >= : greather than equal
-db.coll.find({ age: { $lt: 15 } }); // <= : less than equal
+db.coll.find({ age: { $lt: 15 } }); // <= : less than 
 db.coll.find({ age: { $lte: 15 } }); // <= : less than equal
 db.coll.find({ age: { $in: [10, 11, 12] } }); // in list
 db.coll.find({ age: { $nin: [10, 11, 12] } }); // not in list
@@ -196,3 +196,7 @@ db.coll.deleteMany({
   /* all */
 }); // Delete all documents.
 // db.coll.remove() method is depracated.
+
+const peopleSchema = {user_id: {type: "string",required: true,  maxLength: 30,}, age: {type: "number",},status: {type: "string", maxLength: 1,},};
+
+db.people.insertOne({user_id: "abc123",age: 25, status: "A",})

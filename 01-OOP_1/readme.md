@@ -16,7 +16,7 @@
 
     $ npm help
 
-    $ npm init -y # package.json kur
+    $ npm init -y # package.json kur Proje dosyası oluştur.
     $ npm list # başlangıçta boştur.
 
 
@@ -25,6 +25,8 @@
 #    "dependencies": {
 #     "express": "^4.18.2"
 #   } Projeye express geliştirme bağımlılığı olarak kurdu. --save-dev yazmaya gerek yok.
+
+ npm i dotenv #.env için
 
     $ npm i nodemon --save-dev # package/scripts -> "dev": "nodemon index.js"
     # --save-dev veya kısaltması olan -D, geliştirme bağımlılığı olarak paketi projenize eklediğinizi belirtir.
