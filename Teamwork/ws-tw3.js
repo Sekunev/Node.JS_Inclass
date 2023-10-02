@@ -160,7 +160,7 @@
 // SELECT *
 // FROM people
 // WHERE status = "A"
-// db.people.find({status = "A"})
+// db.people.find({status : "A"})
 
 5 -
   // SELECT user_id, status
@@ -216,7 +216,7 @@
   // FROM people
   // WHERE age > 25
   // AND age <= 50
-  // db.people.find({age:{$gt:25, $lt:50}})
+  // db.people.find({age:{$gt:25, $lte:50}})
 
   // 12-
   // SELECT *

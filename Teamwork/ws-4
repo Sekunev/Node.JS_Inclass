@@ -1,0 +1,90 @@
+//? Ekspres nedir?
+
+// "Express" veya "Express.js," Node.js tabanlı bir web uygulaması çerçevesidir. Express, Node.js tarafından desteklenen ve geliştiricilere web uygulamaları ve API'lar oluşturmak için temel altyapı sağlayan hafif ve esnek bir çerçevedir. İşte Express'in bazı temel özellikleri ve kullanım alanları:
+
+// Hız ve Performans: Express, Node.js'in hız ve verimliliğiyle birleşerek hızlı ve yüksek performanslı web uygulamaları geliştirmenizi sağlar.
+
+// Minimal ve Esnek Yapı: Express, temel HTTP işlevselliğini sunar, ancak geliştiricilere işlevselliği genişletmek veya özelleştirmek için geniş bir yelpaze sunar. Bu, kodunuzu ihtiyaçlarınıza göre şekillendirmenize olanak tanır.
+
+// Yönlendirme (Routing): Express, istekleri belirli işlevlere yönlendirmenizi sağlayan güçlü bir yönlendirme sistemi sunar. Bu, farklı URL rotaları için farklı işlevleri atamanıza olanak tanır.
+
+// Orta Katman (Middleware): Express, middleware kavramını benimseyerek işlem sırasında istekleri ve yanıtları işlemek için işlevler eklemenize olanak tanır. Örneğin, kimlik doğrulama, güvenlik denetimleri veya günlüğe kaydetme gibi işlevleri middleware olarak ekleyebilirsiniz.
+
+// Şablon Motorları: Express, HTML veya diğer şablon dilleri kullanarak dinamik içerik oluşturmanıza olanak tanır. Bu, sunucu tarafında oluşturulan web sayfaları veya görünümler için kullanışlıdır.
+
+// API Geliştirme: Express, RESTful API'lar oluşturmak için yaygın olarak kullanılır. JSON tabanlı API'lar oluşturmak ve yönetmek için iyi bir seçenektir.
+
+// Topluluk Desteği: Express, büyük ve aktif bir geliştirici topluluğuna sahiptir ve bu, dokümantasyonunun zengin ve çevik olmasını sağlar.
+
+// Modüler Yapı: Express, middleware ve eklentilerle genişletilebilir, bu da projenizin ihtiyaçlarına göre özelleştirilmesini kolaylaştırır.
+
+// Express, web uygulamaları ve API'lar oluşturmak için çok popüler bir seçenektir ve genellikle başlangıç seviyesi ve orta düzey geliştiriciler tarafından tercih edilir. Ayrıca, büyük ölçekli uygulamaların geliştirilmesinde de kullanılmaktadır.
+
+// ?Express'in popülaritesi nereden geliyor?
+
+// Express.js'in popülerliği birkaç temel faktörden kaynaklanmaktadır:
+
+// Basitlik ve Minimalizm: Express.js, basitlik ve minimalist tasarımıyla bilinir. Geliştiricilere gereksiz soyutlamaları dayatmadan web uygulamalarını oluşturmak için yeterli özellik sağlar. Geliştiriciler, bu minimalist yaklaşımı uygulamaları üzerinde ince ayar yapmalarına olanak tanıdığı için takdir ederler.
+
+// Middleware Mimarisi: Express'in middleware mimarisi, geliştiricilerin uygulamalarına çeşitli işlevselliği kolayca entegre etmelerini sağlayan güçlü bir özelliktir. Middleware, kimlik doğrulama, günlükleme ve hata işleme gibi görevleri ele alabilir, bu da uygulama mantığını yönetmeyi daha kolay hale getirir.
+
+// Büyük ve Aktif Topluluk: Express.js, büyük ve aktif bir geliştirici ve katkıda bulunan topluluğuna sahiptir. Bu, Express için birçok kaynak, öğreticiler ve açık kaynak paketlerin bulunmasını sağlar; bu da geliştiricilerin öğrenmelerini, sorunlarını gidermelerini ve uygulamalarını genişletmelerini kolaylaştırır.
+
+// Performans: Express.js, mükemmel performansıyla bilinir. Node.js üzerine inşa edilmiştir ve olay yönlendirmeli, bloklamayan bir mimariye sahip olan Node.js, özellikle API'lar ve mikro hizmetler gibi yüksek performanslı uygulamaların geliştirilmesi için Express'i iyi bir seçenek haline getirir.
+
+// Esneklik: Express.js, geliştiricilere ihtiyaçlarına göre mimari kararlar verme özgürlüğü sunan esnek ve tavsiyesiz bir çerçeve sağlar. Bu esneklik, küçük prototiplerden büyük ölçekli uygulamalara kadar birçok projeye uygun hale getirir.
+
+// Yönlendirme: Express.js, rotaları tanımlamayı ve yönetmeyi kolaylaştırır. Yönlendirme, web uygulamalarının önemli bir parçasıdır ve Express, URL'leri belirli işleyicilere veya denetleyicilere eşlemek için basit bir yol sunar.
+
+// Middleware Ekosistemi: Express, npm (Node Package Manager) aracılığıyla mevcut geniş bir middleware ve eklenti ekosistemine sahiptir. Geliştiriciler, uygulamalarına belirli işlevselliği eklemek için üçüncü taraf middleware'leri kolayca bulabilir ve entegre edebilirler.
+
+// Olgun ve Kararlı: Express.js uzun bir süredir varlığını sürdürüyor ve istikrar ve güvenilirlik konusunda iyi bir geçmişe sahiptir. Birçok köklü şirket ve başlangıç Express'i üretim uygulamalarında kullanır.
+
+// Geriye Dönük Uyumluluk: Express.js, geriye dönük uyumluluğu sürdürür, bu da eski sürümleri kullanılan uygulamaların genellikle daha yeni sürümlere kolayca yükseltilebileceği anlamına gelir, büyük kod değişiklikleri gerektirmez.
+
+// Özetle, Express.js'in popülerliği, basitlik, esneklik, performans ve geliştirici topluluğundan aldığı geniş destek gibi faktörlerin bir sonucudur. Node.js ekosistemi içinde web uygulamaları ve API'ler oluşturmak için giderek daha fazla tercih edilen bir çerçeve haline gelmiştir.
+
+//?4 Express ve Nodejs arasındaki farklar nelerdir?
+// Express.js ve Node.js, her ikisi de JavaScript tabanlı ancak farklı amaçlara hizmet eden iki farklı teknolojidir. İşte Express.js ve Node.js arasındaki temel farklar:
+
+// Node.js:
+
+// Node.js, bir çalışma zamanı (runtime) ortamıdır. Bu ortam sayesinde JavaScript sunucu tarafında çalışabilir.
+// Node.js, düşük seviyeli bir JavaScript platformudur ve geliştiricilere sunucu tarafı uygulamalar geliştirmelerine olanak tanır.
+// Dosya sistemine erişim, ağ iletişimi gibi düşük seviyeli işlemleri kolayca gerçekleştirmenizi sağlar.
+// Node.js, web sunucusu oluşturmak için kullanılabilir, ancak bu işlemi daha yüksek düzeyde çerçevelerle kolaylaştırmak için Express.js gibi çerçeveler kullanılabilir.
+// Express.js:
+
+// Express.js, Node.js tabanlı bir web uygulama çerçevesidir. Node.js'nin sunduğu olanakları daha yüksek seviyede kullanımı kolay bir şekilde sunar.
+// Express, HTTP isteklerini kolayca yönlendirmenizi ve işlemenizi sağlar. Bu, web uygulamaları ve API'ler oluşturmak için idealdir.
+// Middleware mimarisi sayesinde oturum yönetimi, kimlik doğrulama, güvenlik kontrolleri gibi yaygın işlevleri kolayca ekleyebilirsiniz.
+// İşteki yükü azaltmak için hızlı ve ölçeklenebilir uygulamalar geliştirmenize yardımcı olur.
+// Yani, ana fark şudur: Node.js, JavaScript'in sunucu tarafında çalışmasına izin veren bir çalışma zamanıdır ve düşük seviyeli işlemleri gerçekleştirmek için kullanılırken; Express.js, Node.js üzerine inşa edilmiş bir web uygulama çerçevesidir ve web uygulamaları ve API'ler oluşturmak için kullanılır. Express.js, Node.js'nin sunduğu yetenekleri daha yüksek seviyede kullanmaya olanak tanır ve geliştiricilere web uygulamaları oluşturmak için daha yüksek düzeyde bir araç sunar.
+
+// ?Middleware nedir ve işlevleri nelerdir?
+
+// Middleware, yazılım geliştirmede kullanılan bir terimdir ve bir yazılım uygulamasının farklı bileşenlerinin (örneğin, web uygulamaları) istekleri işlemek ve yanıtları oluşturmak için kullanılan ara yazılımları ifade eder. Middleware, istek ve yanıtların işlenmesini kontrol etmek ve düzenlemek için kullanılır ve birçok programlama dilinde ve çerçevede bulunabilir.
+
+// Middleware'in temel işlevleri şunlar olabilir:
+
+// İstekleri Dönüştürme (Request Transformation): Middleware, gelen istekleri değiştirebilir veya dönüştürebilir. Örneğin, gelen isteği analiz edip belirli parametreleri çıkarabilir veya ekleyebilir.
+
+// Kimlik Doğrulama ve Yetkilendirme (Authentication and Authorization): Middleware, kullanıcı kimlik doğrulama ve yetkilendirme işlemlerini gerçekleştirebilir. İstekleri kullanıcı oturumu bilgileriyle eşleştirebilir ve kullanıcının erişim izinlerini kontrol edebilir.
+
+// Güvenlik Kontrolleri (Security Checks): Middleware, gelen verileri denetleyebilir ve güvenlik kontrolleri yapabilir. Örneğin, gelen verileri doğrulamak veya veri güvenliği önlemlerini uygulamak için kullanılabilir.
+
+// Veri İşleme (Data Processing): Middleware, gelen verileri işleyebilir, dönüştürebilir veya filtreleyebilir. Örneğin, gelen veriyi veritabanına kaydetmek veya belirli bir formatta yanıt oluşturmak için kullanılabilir.
+
+// Hata İşleme (Error Handling): Middleware, uygulama içinde oluşan hataları yakalayabilir ve uygun bir şekilde işleyebilir. Hataları loglayabilir, istemciye hata mesajları gönderebilir veya alternatif işlemler yapabilir.
+
+// İzleme ve Günlükleme (Logging and Monitoring): Middleware, uygulamanın çalışma durumunu izleyebilir ve günlükleme işlemleri gerçekleştirebilir. Bu, uygulamanın performansını ve sorunlarını izlemek için kullanılır.
+
+// Önbellekleme (Caching): Middleware, verileri önbelleğe alabilir ve tekrarlayan istekler için önbellekten yanıtlar sağlayabilir. Bu, uygulamanın performansını artırabilir.
+
+// Sıkıştırma (Compression): Middleware, yanıtları sıkıştırarak veri transferini optimize edebilir.
+
+// Yönlendirme (Routing): Middleware, istekleri belirli rotalara (routes) yönlendirebilir ve ilgili işleyicilere iletebilir.
+
+// Zamanlama (Timing): Middleware, isteklerin işlenme süresini hesaplayabilir ve bu verileri performans izleme amaçlarıyla kullanabilir.
+
+// Middleware, uygulamaları modüler hale getirir ve istekleri işlemek için bir dizi işlevi bir araya getirir. Bu, uygulamaların daha organize, bakımı daha kolay ve genişletilmesi daha mümkün olmasını sağlar. Express.js gibi web çerçeveleri, middleware kullanımını kolaylaştırır ve geliştiricilere işlevsellik eklemek için özelleştirilebilir bir yapı sunar.
