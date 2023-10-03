@@ -1,15 +1,8 @@
 const router = require("express").Router();
 
-const Todo = require("./model");
+const todo = require("./controller");
 
-router.get("/", async (req, res) => {
-  const data = await Todo.findAndCountAll();
-  res.send({ error: false, result: data });
-});
-
-router.post("/", async (req, res) => {
-  const data = await Todo.create(req.body);
-  res.send({ error: false, body: req.body, message: "Created", result: data });
-});
+router.route("/").get(todo.list).post(todo.create);
+router.route("/:id").get(todo.read).put(todo.update).delete(todo.delete);
 
 module.exports = router;
