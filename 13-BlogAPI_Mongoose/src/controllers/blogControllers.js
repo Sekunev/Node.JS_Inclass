@@ -64,7 +64,7 @@ module.exports.BlogPost = {
 
   delete: async (req, res) => {
     const data = await BlogPost.deleteOne({ _id: req.params.postId });
-
+    console.log(data);
     res.sendStatus(data.deletedCount >= 1 ? 204 : 404);
   },
 };
