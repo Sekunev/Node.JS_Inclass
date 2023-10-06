@@ -1,9 +1,9 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     EXPRESSJS - BLOG Project with Mongoose
 ------------------------------------------------------- */
 
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 /* ------------------------------------------------------- *
 https://mongoosejs.com/docs/models.html
@@ -33,33 +33,59 @@ const nameSchema = new mongoose.Schema({
 })
 
 /* ------------------------------------------------------- */
+// ------------------------------------------
+// BlogCategory
+// ------------------------------------------
+
+const blogCategorySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+  },
+  {
+    collection: "blogCategories",
+    timestamps: true,
+  }
+);
+
+// ------------------------------------------
+
 // blogPost:
 
-const blogPostSchema = new mongoose.Schema({
-
+const blogPostSchema = new mongoose.Schema(
+  {
     // _id
+    blogCategoryId: {
+      type: mongoose.Schema.ObjectId, // Relational ObjectId
+      ref: "BlogCategory", // ModelName Nereden Referans alınacak Model Adı. Modeli Aşağıda tanımladık.
+      //   required: true,
+    },
 
     title: {
-        type: String,
-        trim: true,
-        required: true
+      type: String,
+      trim: true,
+      required: true,
     },
 
     content: {
-        type: String,
-        trim: true,
-        required: true
+      type: String,
+      trim: true,
+      required: true,
     },
 
     published: {
-        type: Boolean,
-        default: true
+      type: Boolean,
+      default: true,
     },
 
     // createdAt
     // updatedAt
-
-}, { collection: 'blogPosts', timestamps: true })
+  },
+  { collection: "blogPosts", timestamps: true }
+);
 
 // const BlogPostModel = mongoose.model('BlogPost', blogPostSchema)
 // module.exports = {
@@ -68,6 +94,7 @@ const blogPostSchema = new mongoose.Schema({
 // }
 
 module.exports = {
-    // BlogCategory:
-    BlogPost: mongoose.model('BlogPost', blogPostSchema)
-}
+  // BlogCategory:
+  BlogCategory: mongoose.model("BlogCategory", blogCategorySchema),
+  BlogPost: mongoose.model("BlogPost", blogPostSchema),
+};

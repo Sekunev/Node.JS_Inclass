@@ -28,8 +28,12 @@ app.all("/", (req, res) => {
 
 // Routes:
 app.use("/blog", require("./src/routes/blogRoute"));
+app.use(require("./src/routes/blogRoute"));
 
 /* ------------------------------------------------------- */
+// Synchronization:
+// require("./src/sync")(); /*! Bu Fonksiiyon blogPost'larda blogCategoryId'si olmayan objelere blogCategoryId vermek için tanımlandı. Bir kere çalıştırıp Pasif hale getirilebilir.*/
+
 // errorHandler:
 app.use(require("./src/errorHandler"));
 
