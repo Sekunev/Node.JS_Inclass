@@ -17,7 +17,8 @@ const { BlogCategory, BlogPost } = require("../models/blogModel");
 // ------------------------------------------
 module.exports.BlogCategory = {
   list: async (req, res) => {
-    const data = await BlogCategory.find();
+    // const data = await BlogCategory.find();
+    const data = await req.getModelList(BlogCategory);
 
     res.status(200).send({
       error: false,
@@ -75,7 +76,7 @@ module.exports.BlogCategory = {
 module.exports.BlogPost = {
   list: async (req, res) => {
     // Searching & Sorting & Pagination:
-
+    /*
     //! SEARCHING: URL?search[key1]=value1&search[key2]=value2
     const search = req.query?.search || {};
     console.log(search);
@@ -113,19 +114,21 @@ module.exports.BlogPost = {
     // console.log('skip', typeof skip, skip)
 
     // RUN:
+    // http://127.0.0.1:8000/blog/post?search[title]=10&sort[createdAt]=-1&limit=5&page=1
     // const data = await BlogPost.find().populate('blogCategoryId') // get Primary Data
+    
     const data = await BlogPost.find(search)
       .sort(sort)
       .skip(skip)
       .limit(limit)
-      .populate("blogCategoryId");
+      .populate("blogCategoryId");*/
 
-    // SEARCHING SORTING PAGINATION olmadan önceki data
-    // const data = await BlogPost.find().populate("blogCategoryId"); // get Primary Data
+    const data = await req.getModelList(BlogPost, "blogCategoryId");
 
     res.status(200).send({
       error: false,
       count: data.length,
+      details: await req.getModelListDetails(BlogPost),
       result: data,
     });
   },

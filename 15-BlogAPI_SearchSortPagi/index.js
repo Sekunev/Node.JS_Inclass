@@ -33,6 +33,9 @@ app.use(express.json());
 // Connect to MongoDB with Mongoose:
 require("./src/dbConnection");
 
+// Searching&Sorting&Pagination:
+app.use(require("./src/middlewares/findSearchSortPage"));
+
 // HomePage:
 app.all("/", (req, res) => {
   res.send("WELCOME TO BLOG API");
@@ -41,6 +44,7 @@ app.all("/", (req, res) => {
 // Routes:
 app.use("/user", require("./src/routes/userRoute"));
 app.use("/blog", require("./src/routes/blogRoute"));
+app.use(require("./src/routes/blogRoute"));
 
 /* ------------------------------------------------------- */
 // Synchronization:
