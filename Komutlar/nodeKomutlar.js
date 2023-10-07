@@ -12,4 +12,8 @@
 - npm i sequelize sqlite3 --> /*sqlite3 ile bağlantı.*/
 // https://sequelize.org/docs/v7/models/data-types/
 
-npm i mongoose --> /*mongoose kur.*/
+- npm i mongoose --> /*mongoose kur.*/
+
+-  npm i cookie-session --> /*cookie-session Login bilgilerini saklamak için. sesion oturumluk, cookie belirlenen süre kadar saklar.*/
+// http://expressjs.com/en/resources/middleware/cookie-session.html
+// https://www.npmjs.com/package/cookie-session

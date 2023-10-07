@@ -28,6 +28,7 @@ app.use(
     // maxAge: 1000 * 60 * 60 * 24 // 1 day (miliseconds)
   })
 );
+// Saklama işlemini userController'da yaptık.
 /* ------------------------------------------------------- */
 
 app.use(express.json());

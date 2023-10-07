@@ -1,11 +1,10 @@
-"use strict"
+"use strict";
 
-const User = require('./models/userModel')
-const { BlogCategory, BlogPost } = require('./models/blogModel')
+const User = require("./models/userModel");
+const { BlogCategory, BlogPost } = require("./models/blogModel");
 
 module.exports = async () => {
-
-    /* User *
+  /* User (kategorisi olmayan userlara kategori vermek için.)*
 
     // Get first user:
     const user = await User.findOne()
@@ -35,35 +34,39 @@ module.exports = async () => {
         }).catch(err => console.log(err))
     }
 
-    /* Exampla Data */
-    // Deleted All Records:
-    await User.deleteMany().then(() => console.log(' - User Deleted All'))
-    await BlogCategory.deleteMany().then(() => console.log(' - BlogCategory Deleted All'))
-    await BlogPost.deleteMany().then(() => console.log(' - BlogPost Deleted All'))
+    /* Exampla Data (200 tane BlogPost, 1 user ve 1 blogCategory oluştur.)*/
+  // Deleted All Records:
+  await User.deleteMany().then(() => console.log(" - User Deleted All"));
+  await BlogCategory.deleteMany().then(() =>
+    console.log(" - BlogCategory Deleted All")
+  );
+  await BlogPost.deleteMany().then(() =>
+    console.log(" - BlogPost Deleted All")
+  );
 
-    // Example User:
-    const user = await User.create({
-        email: "test@test.com",
-        password: "12345678",
-        firstName: "Test",
-        lastName: "Test"
-    })
-    // Example Category:
-    const blogCategory = await BlogCategory.create({
-        name: 'Test Category'
-    })
-    // Example Posts:
-    for (let key in [...Array(200)]) {
-        await BlogPost.create({
-            userId: user._id,
-            blogCategoryId: blogCategory._id,
-            title: `test ${key} title`,
-            content: `test ${key} content`,
-            published: Boolean(key%2)
-        })
-    }
+  // Example User:
+  const user = await User.create({
+    email: "test@test.com",
+    password: "12345678",
+    firstName: "Test",
+    lastName: "Test",
+  });
+  // Example Category:
+  const blogCategory = await BlogCategory.create({
+    name: "Test Category",
+  });
+  // Example Posts:
+  for (let key in [...Array(200)]) {
+    await BlogPost.create({
+      userId: user._id,
+      blogCategoryId: blogCategory._id,
+      title: `test ${key} title`,
+      content: `test ${key} content`,
+      published: Boolean(key % 2),
+    });
+  }
 
-    // End:
-    console.log('* Synchronised *')
-    /* Finished */
-}
+  // End:
+  console.log("* Synchronised *");
+  /* Finished */
+};
