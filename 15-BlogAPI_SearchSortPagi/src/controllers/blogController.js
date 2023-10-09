@@ -18,6 +18,8 @@ const { BlogCategory, BlogPost } = require("../models/blogModel");
 module.exports.BlogCategory = {
   list: async (req, res) => {
     // const data = await BlogCategory.find();
+
+    // middleware'de tanımladığımız getModelList fonksiyonunu istediğimiz controller'da kullanarak Searching & Sorting & Pagination işlemlerini yapabiliriz.
     const data = await req.getModelList(BlogCategory);
 
     res.status(200).send({
