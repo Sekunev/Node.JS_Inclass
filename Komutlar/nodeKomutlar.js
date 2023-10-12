@@ -17,3 +17,6 @@
 -  npm i cookie-session --> /*cookie-session Login bilgilerini saklamak için. sesion oturumluk, cookie belirlenen süre kadar saklar.*/
 // http://expressjs.com/en/resources/middleware/cookie-session.html
 // https://www.npmjs.com/package/cookie-session
+
+- npm i jsonwebtoken  --> JWT Token için
+// https://jwt.io/
