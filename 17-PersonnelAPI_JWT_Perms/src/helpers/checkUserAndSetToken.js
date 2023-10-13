@@ -6,19 +6,25 @@ const jwt = require("jsonwebtoken");
 const Personnel = require("../models/personnel.model");
 
 module.exports = async function (userData, withRefresh = true) {
-  const { username, password } = userData;
+  let { username, password } = userData;
 
   if (username && password) {
+    //! bilgilerini doğru bir şekilde girmişse ve hesabı aktifse, sunucu bir accessToken ve bir refreshToken oluşturur. AccessToken, kullanıcının belirli bir süre boyunca yetkilendirilmesini sağlar. RefreshToken ise kullanıcının oturumunu sürekli olarak yenileyebilmesi için kullanılır. Web sitesi, bu tokenları kullanıcısına geri döner. AccessToken, kullanıcının sunucuya erişimini sağlarken, RefreshToken, AccessToken'ın süresi dolarsa yeniden AccessToken alabilmesi için kullanılır.AccessToken'ın süresi (örneğin, 10 dakika) dolduğunda, kullanıcı yeniden oturum açmalı veya RefreshToken'ı kullanarak yeni bir AccessToken almalıdır. Bu, güvenliği artırır.
+
+    //? Bütün kullanıcılar 30d sonra çıksın istiyorsak .env deki REFRESH_KEY,
+    //? Bütün kullanıcılar aynı anda çıkış yapsın istiyorsak .env deki REFRESH_KEY ve ACCESS_KEY,
+    //? Herkesin password'u iptal olsun istersem .env SECRET_KEY değişmeli
+
     const user = await Personnel.findOne({ username });
+
+    if (withRefresh) {
+      const passwordEncrypt = require("./passwordEncrypt");
+      password = passwordEncrypt(password);
+    }
 
     if (user && user.password == password) {
       if (user.isActive) {
         // Login OK
-        //! bilgilerini doğru bir şekilde girmişse ve hesabı aktifse, sunucu bir accessToken ve bir refreshToken oluşturur. AccessToken, kullanıcının belirli bir süre boyunca yetkilendirilmesini sağlar. RefreshToken ise kullanıcının oturumunu sürekli olarak yenileyebilmesi için kullanılır. Web sitesi, bu tokenları kullanıcısına geri döner. AccessToken, kullanıcının sunucuya erişimini sağlarken, RefreshToken, AccessToken'ın süresi dolarsa yeniden AccessToken alabilmesi için kullanılır.AccessToken'ın süresi (örneğin, 10 dakika) dolduğunda, kullanıcı yeniden oturum açmalı veya RefreshToken'ı kullanarak yeni bir AccessToken almalıdır. Bu, güvenliği artırır.
-
-        //? Bütün kullanıcılar 30d sonra çıksın istiyorsak .env deki REFRESH_KEY,
-        //? Bütün kullanıcılar aynı anda çıkış yapsın istiyorsak .env deki REFRESH_KEY ve ACCESS_KEY,
-        //? Herkesin password'u iptal olsun istersem .env SECRET_KEY değişmeli
 
         const accessData = {
           _id: user._id,
