@@ -32,6 +32,9 @@ dbConnection();
 // Accept JSON:
 app.use(express.json());
 
+// accessToken Control:
+app.use(require("./src/middlewares/authentication"));
+
 // res.getModelList():
 app.use(require("./src/middlewares/findSearchSortPage"));
 
