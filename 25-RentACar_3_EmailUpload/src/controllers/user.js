@@ -1,18 +1,17 @@
-"use strict"
+"use strict";
 /* -------------------------------------------------------
     NODEJS EXPRESS | CLARUSWAY FullStack Team
 ------------------------------------------------------- */
 // User Controller:
 
-const User = require('../models/user')
-const Token = require('../models/token')
-const passwordEncrypt = require('../helpers/passwordEncrypt')
-const sendMail = require('../helpers/sendMail')
+const User = require("../models/user");
+const Token = require("../models/token");
+const passwordEncrypt = require("../helpers/passwordEncrypt");
+const sendMail = require("../helpers/sendMail");
 
 module.exports = {
-
-    list: async (req, res) => {
-        /*
+  list: async (req, res) => {
+    /*
             #swagger.tags = ["Users"]
             #swagger.summary = "List Users"
             #swagger.description = `
@@ -25,19 +24,19 @@ module.exports = {
             `
         */
 
-        const data = await res.getModelList(User)
+    const data = await res.getModelList(User);
 
-        res.status(200).send({
-            error: false,
-            details: await res.getModelListDetails(User),
-            data
-        })
-    },
+    res.status(200).send({
+      error: false,
+      details: await res.getModelListDetails(User),
+      data,
+    });
+  },
 
-    // CRUD:
+  // CRUD:
 
-    create: async (req, res) => {
-        /*
+  create: async (req, res) => {
+    /*
             #swagger.tags = ["Users"]
             #swagger.summary = "Create User"
             #swagger.parameters['body'] = {
@@ -53,64 +52,66 @@ module.exports = {
             }
         */
 
-        // Disallow set admin:
-        req.body.isAdmin = false
+    // Disallow set admin:
+    req.body.isAdmin = false;
 
-        const data = await User.create(req.body)
+    const data = await User.create(req.body);
 
-        /* TOKEN */
-        let tokenKey = passwordEncrypt(data._id + Date.now())
-        let tokenData = await Token.create({ userId: data._id, token: tokenKey })
-        /* TOKEN */
+    /* TOKEN */
+    let tokenKey = passwordEncrypt(data._id + Date.now());
+    let tokenData = await Token.create({ userId: data._id, token: tokenKey });
+    /* TOKEN */
 
-        /* SENDMAIL to NewUSer */
-        sendMail(
-            // user email:
-            data.email,
-            // Subject:
-            'Welcome',
-            // Message:
-            `
+    /* SENDMAIL to NewUSer Yeni kullanıcı oluşturulduğunda mailine eposta gitsin */
+    sendMail(
+      // user email:
+      data.email,
+      // Subject:
+      "Welcome",
+      // Message:
+      `
                 <p>Welcome to our system</p>
                 Bla bla bla...
-                Verify Email: http://127.0.0.1:8000/users/verify/?id=${data._id}&verifyCode=${passwordEncrypt(data.email)}
+                Verify Email: http://127.0.0.1:8000/users/verify/?id=${
+                  data._id
+                }&verifyCode=${passwordEncrypt(data.email)}
             `
-        )
-        /* SENDMAIL to NewUSer */
+    );
+    /* SENDMAIL to NewUSer */
 
-        res.status(201).send({
-            error: false,
-            token: tokenData.token,
-            data
-        })
-    },
+    res.status(201).send({
+      error: false,
+      token: tokenData.token,
+      data,
+    });
+  },
 
-    read: async (req, res) => {
-        /*
+  read: async (req, res) => {
+    /*
             #swagger.tags = ["Users"]
             #swagger.summary = "Get Single User"
         */
 
-        // Filters:
-        // if (req.user.isAdmin) {
-        //     let filters = {}
-        // } else {
-        //     let filters = { _id: req.user._id }
-        // }
-        // Only self record:
-        let filters = {}
-        if (!req.user?.isAdmin) filters = { _id: req.user._id }
+    // Filters:
+    // if (req.user.isAdmin) {
+    //     let filters = {}
+    // } else {
+    //     let filters = { _id: req.user._id }
+    // }
+    // Only self record:
+    let filters = {};
+    if (!req.user?.isAdmin) filters = { _id: req.user._id };
 
-        const data = await User.findOne({ _id: req.params.id, ...filters })
+    const data = await User.findOne({ _id: req.params.id, ...filters });
 
-        res.status(200).send({
-            error: false,
-            data
-        })
-    },
+    res.status(200).send({
+      error: false,
+      data,
+    });
+  },
 
-    update: async (req, res) => {
-        /*
+  update: async (req, res) => {
+    /*
             #swagger.tags = ["Users"]
             #swagger.summary = "Update User"
             #swagger.parameters['body'] = {
@@ -126,65 +127,56 @@ module.exports = {
             }
         */
 
-        // Only self record:
-        let filters = {}
-        if (!req.user?.isAdmin) {
-            filters = { _id: req.user._id }
-            req.body.isAdmin = false
-        }
+    // Only self record:
+    let filters = {};
+    if (!req.user?.isAdmin) {
+      filters = { _id: req.user._id };
+      req.body.isAdmin = false;
+    }
 
-        const data = await User.updateOne({ _id: req.params.id, ...filters }, req.body, { runValidators: true })
+    const data = await User.updateOne(
+      { _id: req.params.id, ...filters },
+      req.body,
+      { runValidators: true }
+    );
 
-        res.status(200).send({
-            error: false,
-            data,
-            new: await User.findOne({ _id: req.params.id })
-        })
-    },
+    res.status(200).send({
+      error: false,
+      data,
+      new: await User.findOne({ _id: req.params.id }),
+    });
+  },
 
-    delete: async (req, res) => {
-        /*
+  delete: async (req, res) => {
+    /*
             #swagger.tags = ["Users"]
             #swagger.summary = "Delete User"
         */
 
-        const data = await User.deleteOne({ _id: req.params.id })
+    const data = await User.deleteOne({ _id: req.params.id });
 
-        res.status(data.deletedCount ? 204 : 404).send({
-            error: !data.deletedCount,
-            data
-        })
+    res.status(data.deletedCount ? 204 : 404).send({
+      error: !data.deletedCount,
+      data,
+    });
+  },
 
-    },
+  verify: async (req, res) => {
+    const { id: _id, verifyCode } = req.query;
 
-    verify: async (req, res) => {
+    const user = await User.findOne({ _id });
 
-        const { id: _id, verifyCode } = req.query
+    if (user && verifyCode == passwordEncrypt(user.email)) {
+      await User.updateOne({ _id }, { emailVerified: true });
+      sendMail(user.email, "Email Verified", "Email Verified");
 
-        const user = await User.findOne({ _id })
-
-        if (
-            user &&
-            verifyCode == passwordEncrypt(user.email)
-        ) {
-
-            await User.updateOne({ _id }, { emailVerified: true })
-            sendMail(
-                user.email,
-                'Email Verified',
-                'Email Verified',
-            )
-
-            res.status(200).send({
-                error: false,
-                message: 'Email Verified'
-            })
-
-        } else {
-            res.errorStatusCode = 402
-            throw new Error('User Not Found.')
-        }
-
+      res.status(200).send({
+        error: false,
+        message: "Email Verified",
+      });
+    } else {
+      res.errorStatusCode = 402;
+      throw new Error("User Not Found.");
     }
-
-}
+  },
+};
