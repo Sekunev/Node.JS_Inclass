@@ -4,20 +4,24 @@
 ------------------------------------------------------- */
 const router = require("express").Router();
 /* ------------------------------------------------------- */
-// routes/sale:
+// routes/purchase:
 
-const sale = require("../controllers/sale");
+const permissions = require("../middlewares/permissions");
+const purchase = require("../controllers/purchase");
 
-// URL: /sales
+// URL: /purchases
 
-router.route("/").get(sale.list).post(sale.create);
+router
+  .route("/")
+  .get(permissions.isStaff, purchase.list)
+  .post(permissions.isStaff, purchase.create);
 
 router
   .route("/:id")
-  .get(sale.read)
-  .put(sale.update)
-  .patch(sale.update)
-  .delete(sale.delete);
+  .get(permissions.isStaff, purchase.read)
+  .put(permissions.isStaff, purchase.update)
+  .patch(permissions.isStaff, purchase.update)
+  .delete(permissions.isStaff, purchase.delete);
 
 /* ------------------------------------------------------- */
 module.exports = router;
