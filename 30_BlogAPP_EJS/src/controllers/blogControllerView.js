@@ -30,63 +30,96 @@ module.exports.BlogPost = {
         //     result: data,
         // })
 
-        // HTML Output:
-        res.render('index')
-    },
+        const categories = await BlogCategory.find()
+        const recentPosts = await BlogPost.find().sort({ createdAt: 'desc' }).limit(3)
 
-    listCategoryPosts: async (req, res) => {
+        // Add '?' parameters to url if there is not:
+        if (!req.url.includes('?')) req.url += '?'
 
-        const data = await BlogPost.find({ blogCategoryId: req.params.categoryId }).populate('blogCategoryId')
-
-        res.status(200).send({
-            error: false,
-            count: data.length,
-            result: data
+        // Output: HTML
+        // res.render('index', {
+        res.render('postList', {
+            details: await res.getModelListDetails(BlogPost),
+            posts: data,
+            categories,
+            recentPosts,
+            // pageUrl: req.url,
+            pageUrl: req.url.replace(/[?|&]page=([^&]+)/gi, '') // clean 'page' queries from url.
         })
     },
 
     // CRUD ->
 
     create: async (req, res) => {
-        
-        const data = await BlogPost.create(req.body)
 
-        res.status(201).send({
-            error: false,
-            body: req.body,
-            result: data,
-        })
+        if (req.method == 'POST') {
+        
+            const data = await BlogPost.create(req.body)
+    
+            // res.status(201).send({
+            //     error: false,
+            //     body: req.body,
+            //     result: data,
+            // })
+
+            res.redirect('/post/' + data.id)
+
+        } else {
+
+            res.render('postForm', {
+                categories: await BlogCategory.find(),
+                post: null
+            })
+        }
     },
 
     read: async (req, res) => {
         
         const data = await BlogPost.findOne({ _id: req.params.postId }).populate('blogCategoryId') // get Primary Data
 
-        res.status(200).send({
-            error: false,
-            result: data
+        // res.status(200).send({
+        //     error: false,
+        //     result: data
+        // })
+
+        res.render('postRead', {
+            post: data
         })
 
     },
 
     update: async (req, res) => {
+
+        if (req.method == 'POST') {
         
-        const data = await BlogPost.updateOne({ _id: req.params.postId }, req.body, { runValidators: true })
+            const data = await BlogPost.updateOne({ _id: req.params.postId }, req.body, { runValidators: true })
+    
+            // res.status(202).send({
+            //     error: false,
+            //     body: req.body,
+            //     result: data, // update infos
+            //     newData: await BlogPost.findOne({ _id: req.params.postId })
+            // })
 
-        res.status(202).send({
-            error: false,
-            body: req.body,
-            result: data, // update infos
-            newData: await BlogPost.findOne({ _id: req.params.postId })
-        })
+            res.redirect('/post/' + req.params.postId)
 
+        } else {
+
+            res.render('postForm', {
+                categories: await BlogCategory.find(),
+                post: await BlogPost.findOne({ _id: req.params.postId }).populate('blogCategoryId')
+            })
+
+        }
     },
 
     delete: async (req, res) => {
         
         const data = await BlogPost.deleteOne({ _id: req.params.postId })
 
-        res.sendStatus( (data.deletedCount >= 1) ? 204 : 404 )
+        // res.sendStatus( (data.deletedCount >= 1) ? 204 : 404 )
+
+        res.redirect('/')
 
     },
 }
