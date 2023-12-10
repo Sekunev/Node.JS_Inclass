@@ -2,37 +2,39 @@
 
 ## Server Systems
 
-* Physical Servers (BareMetal Servers):
-    * Bilgisayar -> Yüksek donanım, özel işlemciler, özel işletim sistemleri.
-    * Kurulum: zor
-    * VeriTaşıma: zor
-    * Maliyet: yüksek
-    * Dedicated Servers
+- Physical Servers (BareMetal Servers):
 
-* Virtual Servers (VMs: Virtual Machines):
-    * Bir fiziksel makina içinde çok sanal makina.
-    * Kurulum: orta (iso image)
-    * VeriTaşıma: orta
-    * Maliyet: orta
-    * Bir makiaden diğer makinaya geçiş zorluğu.
-    * Hypervisor yazılımları -> vmware.com
-    * VPS (Virtual Private Server), VDS (Virtual Dedicated Server)
+  - Bilgisayar -> Yüksek donanım, özel işlemciler, özel işletim sistemleri.
+  - Kurulum: zor
+  - VeriTaşıma: zor
+  - Maliyet: yüksek
+  - Dedicated Servers
 
-* Containers:
-    * Bir fiziksel/sanal makina içinde çok konteyner.
-    * Kurulum: kolay (docker image)
-    * VeriTaşıma: kolay
-    * Maliyet: düşük
-    * Tüm konteynerları aynı ortamdan yönetebilme.
-    * Microservice mimarisi.
-    * Container yazılımları -> docker.com
+- Virtual Servers (VMs: Virtual Machines):
+
+  - Bir fiziksel makina içinde çok sanal makina.
+  - Kurulum: orta (iso image)
+  - VeriTaşıma: orta
+  - Maliyet: orta
+  - Bir makiaden diğer makinaya geçiş zorluğu.
+  - Hypervisor yazılımları -> vmware.com
+  - VPS (Virtual Private Server), VDS (Virtual Dedicated Server)
+
+- Containers:
+  - Bir fiziksel/sanal makina içinde çok konteyner.
+  - Kurulum: kolay (docker image)
+  - VeriTaşıma: kolay
+  - Maliyet: düşük
+  - Tüm konteynerları aynı ortamdan yönetebilme.
+  - Microservice mimarisi.
+  - Container yazılımları -> docker.com
 
 ## Temel Bilgiler
 
-* IP ve Port:
-  * Default portlar 80 443 -> https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
-  * http -> 80 * http://clarusway.com == http://clarusway.com:80
-  * https -> 443 * https://clarusway.com == https://clarusway.com:443 (need SSL)
+- IP ve Port:
+  - Default portlar 80 443 -> https://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers
+  - http -> 80 \* http://clarusway.com == http://clarusway.com:80
+  - https -> 443 \* https://clarusway.com == https://clarusway.com:443 (need SSL)
 
 ---
 
@@ -40,13 +42,15 @@
 
 ## Yüklemeler:
 
-* Docker Desktop -> https://www.docker.com/products/docker-desktop/
-    * Windows ve Macos için setup dosyası mevcut.
-    * Linux sistemlere CLI üzerinden kurulum yapılabilir. -> https://docs.docker.com/desktop/install/linux-install/
+- Docker Desktop -> https://www.docker.com/products/docker-desktop/
 
-* Docker Hub -> https://hub.docker.com
+  - Windows ve Macos için setup dosyası mevcut.
+  - Linux sistemlere CLI üzerinden kurulum yapılabilir. -> https://docs.docker.com/desktop/install/linux-install/
 
-* VSCode Docker Extension -> https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker
+- Docker Hub -> https://hub.docker.com
+<!-- Docker Hub Github gibi. -->
+
+- VSCode Docker Extension -> https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker
 
 ## .dockerignore
 
@@ -86,17 +90,21 @@ npm-debug.log
 ```
 
 ## DOCKERFILE
-* https://docs.docker.com/engine/reference/builder/
-* create file, named "dockerfile" (no extension)
+
+- https://docs.docker.com/engine/reference/builder/
+- create file, named "dockerfile" (no extension)
 
 backend/dockerfile:
 
 ```dockerfile
 # FROM node
 FROM node:20.9.0-alpine3.18
+# https://hub.docker.com/_/node/tags?page=2 bu adresdeki başlıklardan birini alıyoruz. alphine tercih et.
 
+# WORKDIR --> Çalışma alanımız
 WORKDIR /backend
 
+# Dosyaları Aktar: COPY localdekileri inImage'e kopyala.
 COPY . .
 
 RUN mkdir -p logs
@@ -138,14 +146,14 @@ EXPOSE 5173
 # Browser: http://localhost:5173
 ```
 
-
 ## Komutlar:
-* https://docs.docker.com/get-started/docker_cheatsheet.pdf
+
+- https://docs.docker.com/get-started/docker_cheatsheet.pdf
 
 ```sh
 
     $ docker --version # Check version
-    $ docker version # Check version with details 
+    $ docker version # Check version with details
     $ docker info # Check info
     $ docker help # Run help and see all commands
     $ docker <command> --help # Run help for any command.
@@ -157,7 +165,7 @@ EXPOSE 5173
     # Build Files to Image:
     $ docker build -t <image_name> <folder_name> # Create images from dockerfile.
     $ docker build -t <user_name>/<image_name> .
-    
+
     # Run Image to Container: (allways, image_name must be on the end):
     $ docker run -d -p <ext_port_number>:<int_port_number> <image_name> # run with external/internal port
     $ docker run -d --name <container_name> <image_name> # run and set container name
@@ -185,11 +193,12 @@ EXPOSE 5173
     $ docker system prune -a -f
 
 ```
+
 ---
 
 # Docker Compose
 
-* https://docs.docker.com/compose/compose-file/
+- https://docs.docker.com/compose/compose-file/
 
 /docker-compose.yml:
 
@@ -197,34 +206,32 @@ EXPOSE 5173
 version: "3.9" # opsiyonel.
 
 services:
+  frontend:
+    # container_name: frontend # (default:key)
+    image: "docker-compose-frontend" # image_name
+    build: ./frontend # Dockerize edilecek klasör (dockerfile)
+    ports:
+      # dış/iç port numaraları
+      - 5173:5173
+      - 3000:5173
+      - 80:5173
+    restart: on-failure # hata anında tekrar çalıştır.
+    depends_on:
+      # önce aşağıdakileri çalıştır.
+      - backend # aşağıda tanımlandı.
 
-    frontend:
-        # container_name: frontend # (default:key)
-        image: "docker-compose-frontend" # image_name
-        build: ./frontend # Dockerize edilecek klasör (dockerfile)
-        ports:
-            # dış/iç port numaraları
-            - 5173:5173
-            - 3000:5173
-            - 80:5173
-        restart: on-failure # hata anında tekrar çalıştır.
-        depends_on:
-            # önce aşağıdakileri çalıştır.
-            - backend # aşağıda tanımlandı.
-
-    backend:
-        # container_name: backend # (default:key)
-        image: "docker-compose-backend" # image_name
-        build: ./backend # Dockerize edilecek klasör (dockerfile)
-        ports:
-            # dış/iç port numaraları
-            - 8000:8000
-        restart: on-failure # hata anında tekrar çalıştır.
-        volumes:
-            # fiziksel yollar (external:internal)
-            - $PWD/backend/logs:/backend/logs
-            - $PWD/backend/upload:/backend/upload
-
+  backend:
+    # container_name: backend # (default:key)
+    image: "docker-compose-backend" # image_name
+    build: ./backend # Dockerize edilecek klasör (dockerfile)
+    ports:
+      # dış/iç port numaraları
+      - 8000:8000
+    restart: on-failure # hata anında tekrar çalıştır.
+    volumes:
+      # fiziksel yollar (external:internal)
+      - $PWD/backend/logs:/backend/logs
+      - $PWD/backend/upload:/backend/upload
 # --------------------------------
 # $ docker compose up # compose çalıştır.
 # $ docker compose up -d --build # compose daemon aç ve tekrar build et.
@@ -239,7 +246,7 @@ services:
 ```sh
 
     $ docker run -p 8081:8081 --rm -e ME_CONFIG_MONGODB_URL='mongodb://host.docker.internal:27017' mongo-express
-    # open with browser -> http://admin:pass@127.0.0.1:8081 
+    # open with browser -> http://admin:pass@127.0.0.1:8081
     # username: admin - password: pass
 
 ```
